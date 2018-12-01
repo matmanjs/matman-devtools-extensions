@@ -47,7 +47,67 @@ var elements = chrome.devtools.panels.elements;
 //     elements.onSelectionChanged.addListener(updateElementProperties);
 // });
 
+var i=0;
+
 elements.createSidebarPane('matman', function (sidebar) {
-    sidebar.setPage('dashboard.html');
+
+    sidebar.setPage('panel.html');
     sidebar.setHeight('12ex');
+
+    elements.onSelectionChanged.addListener(function () {
+        // chrome.devtools.inspectedWindow.eval("setSelectedElement($0)",
+        //     { useContentScriptContext: true });
+
+        chrome.devtools.inspectedWindow.eval('$0', (result) => {
+            console.log('=dfdfd===', result);
+            i++;
+            sidebar.setObject({
+                some_data: {
+                    name: 'te'+i,
+                    age: 3,
+                    result: 'result='+result,
+                    ty: typeof result
+                }
+            });
+        });
+
+        // chrome.devtools.inspectedWindow.eval( "JSON.stringify(context.getStore())"。
+    });
+    //
+    // function handleSelectedElement() {
+    //     browser.devtools.inspectedWindow.eval("$0.textContent")
+    //         .then((result) => {
+    //             console.log(result[0]);
+    //         });
+    // }
+    //
+    // elements.onSelectionChanged.addListener(handleSelectedElement);
+
+    //
+    // function updateElementProperties() {
+    //     // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setExpression
+    //     // sidebar.setExpression('(' + handleContents.toString() + ')()');
+    //
+    //     console.log('===13==');
+    //
+    //     // chrome.devtools.inspectedWindow.eval('setSelectedElement($0)',
+    //     //     { useContentScriptContext: true });
+    //
+    //     // chrome.devtools.inspectedWindow.eval("setSelectedElement($0)",
+    //     //     { useContentScriptContext: true });
+    //     // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setObject
+    //     // sidebar.setObject({
+    //     //     some_data: {
+    //     //         name: 'sdfdsfds',
+    //     //         age: 2
+    //     //     }
+    //     // });
+    //
+    //     /// https://developer.chrome.com/extensions/devtools.panels#method-ExtensionSidebarPane-setPage
+    // }
+    //
+    // updateElementProperties();
+
+    // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-onSelectionChanged
+    // elements.onSelectionChanged.addListener(updateElementProperties);
 });
