@@ -1,11 +1,12 @@
-console.log('--hello--content-script4.js', window.jQuery);
+console.log('--hello--content-script.js', window.jQuery);
 
-chrome.runtime.sendMessage({ zzzzzz: 'xxxxxxx', result: 222 }, function (response) {
-    console.log('--xxxxxx ontent-script--', response);
-});
 
-chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse) {
-        console.log('--onMessage content-script--', request);
-        sendResponse('收到了！')
+
+$(document).ready(function(){
+    var size = window.jQuery('div').length
+    console.log('--hello--content-script.js 222222',size);
+
+    chrome.runtime.sendMessage({ zzzzzz: 'xxxxxxx', result: size }, function (response) {
+        console.log('--xxxxxx ontent-script--', response);
     });
+});
