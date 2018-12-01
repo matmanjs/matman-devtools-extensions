@@ -1,5 +1,5 @@
-# mockstarjs-devtools
+# matman-devtools
 
-Chrome devtools for mockstarjs。
+Chrome devtools for [matman](https://github.com/matmanjs/matman) 。
 
 

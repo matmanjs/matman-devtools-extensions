@@ -26,7 +26,7 @@ function handleContents() {
 
 var elements = chrome.devtools.panels.elements;
 
-elements.createSidebarPane('mockstar', function (sidebar) {
+elements.createSidebarPane('matman', function (sidebar) {
     function updateElementProperties() {
         // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setExpression
         sidebar.setExpression('(' + handleContents.toString() + ')()');
