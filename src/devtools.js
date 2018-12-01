@@ -5,7 +5,6 @@ function handleContents() {
     if (!$0) {
         return;
     }
-
     var curElem = $0;
 
     // 当前选择的元素为 $0
@@ -16,12 +15,41 @@ function handleContents() {
 
         data.className = $el.attr('class');
         data.text = jQuery.trim($el.text());
+        data.jquery = true;
     } else {
         data.className = curElem.getAttribute('class');
         data.text = curElem.innerText;
+        data.jquery = false;
     }
 
     return data;
+}
+
+/**
+ 获取元素的xpath
+ 特性：
+ - 转换xpath为csspath进行jQuery元素获取
+ - 仅生成自然表述路径（不支持非、或）
+ @param dom {String/Dom} 目标元素
+ @returns {String} dom的xpath路径
+ */
+function getDomSelector(dom) {
+    var path;
+
+    for (path = ''; dom && dom.nodeType == 1; dom = dom.parentNode) {
+        // 有 id 的情况直接退出
+        if (dom.id) {
+            path = '#' + dom.id + ' ' + path;
+            break;
+        }
+
+        // 可能会有多个class
+        if (dom.className) {
+            path = '.' + dom.className.split(/\s+/).join('.') + ' ' + path;
+        }
+    }
+
+    return path.trim();
 }
 
 var elements = chrome.devtools.panels.elements;
@@ -77,8 +105,8 @@ elements.createSidebarPane('matman', function (sidebar) {
                 //     });
                 // }
 
-                chrome.extension.sendMessage({ greeting: 'hello', result:result }, function (response) {
-                    console.log('--i got response--', response);
+                chrome.runtime.sendMessage({ greeting: 'hello', result: result }, function (response) {
+                    console.log('--i got response333--', response);
                 });
             }
         );
@@ -93,7 +121,4 @@ elements.createSidebarPane('matman', function (sidebar) {
     // elements.onSelectionChanged.addListener(updateElementProperties);
 });
 
-chrome.runtime.onConnect.addListener(function (port) {
-    const message = { action: 'yyyyy' };
-    port.postMessage(message);
-});
+

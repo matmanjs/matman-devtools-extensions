@@ -22,3 +22,4 @@ Chrome devtools for [matman](https://github.com/matmanjs/matman) 。
 ## 更多资料
 
 - https://developer.chrome.com/extensions/devtools
+- http://www.cnblogs.com/liuxianan/p/chrome-plugin-develop.html#%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2
