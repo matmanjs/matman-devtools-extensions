@@ -1,19 +1,26 @@
-function setSelectedElement(el) {
-    // do something with the selected element
-    console.log('======setSelectedElement==',el)
-    const appNode = document.querySelector('#app');
-    const titleWrapper = document.createElement('div');
-    const title = document.createTextNode('hello,text2');
-    titleWrapper.appendChild(title);
-    appNode.appendChild(titleWrapper);
-}
+const port = chrome.extension.connect({
+    name: 'mytesttt'
+});
+
+const inspectedWindowId = chrome.devtools.inspectedWindow.tabId;
+
+// Listen to messages from the background page
+port.onMessage.addListener(function (message) {
+    console.log('-----=======port.onMessage======----', message, inspectedWindowId);
+});
+
+chrome.extension.onMessage.addListener(
+    function (request, sender, sendResponse) {
+        console.log('--onMessage--', request);
+        sendResponse({ farewell: 'i got your message, and saygoodbye' });
+    });
 
 function getPageTitle() {
-    console.log('======setPageTitle==')
+    console.log('======setPageTitle==');
     chrome.devtools.inspectedWindow.eval(
         'document.title',
         function (result, isException) {
-            console.log('======cument.title==', result)
+            console.log('======cument.title==', result);
 
             const appNode = document.querySelector('#app');
             const titleWrapper = document.createElement('div');
@@ -23,7 +30,6 @@ function getPageTitle() {
         }
     );
 }
-
 
 getPageTitle();
 // chrome.devtools.inspectedWindow.eval(
@@ -37,7 +43,6 @@ getPageTitle();
 //         appNode.appendChild(title);
 //     }
 // );
-
 
 //
 // (function () {
