@@ -22,7 +22,7 @@ function handleContents() {
     }
 
     return data;
-};
+}
 
 var elements = chrome.devtools.panels.elements;
 
@@ -47,66 +47,39 @@ var elements = chrome.devtools.panels.elements;
 //     elements.onSelectionChanged.addListener(updateElementProperties);
 // });
 
-var i=0;
-
 elements.createSidebarPane('matman', function (sidebar) {
 
-    sidebar.setPage('panel.html');
+    sidebar.setPage('sidebar.html');
     sidebar.setHeight('12ex');
 
-    elements.onSelectionChanged.addListener(function () {
-        // chrome.devtools.inspectedWindow.eval("setSelectedElement($0)",
-        //     { useContentScriptContext: true });
+    let panelWindow;
 
-        chrome.devtools.inspectedWindow.eval('$0', (result) => {
-            console.log('=dfdfd===', result);
-            i++;
-            sidebar.setObject({
-                some_data: {
-                    name: 'te'+i,
-                    age: 3,
-                    result: 'result='+result,
-                    ty: typeof result
+    const getAcssClass = extPanelWindow => {
+        panelWindow = extPanelWindow;
+        updateAcssClass();
+    };
+
+    const updateAcssClass = () => {
+        chrome.devtools.inspectedWindow.eval(
+            '(' + handleContents.toString() + ')()',
+            (result, isException) => {
+                if (!panelWindow) {
+                    return;
                 }
-            });
-        });
+                console.log(result);
+                const status = panelWindow.document.querySelector('#app');
+                const acssClass = result && (typeof result === 'object') ? JSON.stringify(result) : result;
+                if (status) {
+                    status.innerHTML = acssClass;
+                }
+            }
+        );
+    };
 
-        // chrome.devtools.inspectedWindow.eval( "JSON.stringify(context.getStore())"。
-    });
-    //
-    // function handleSelectedElement() {
-    //     browser.devtools.inspectedWindow.eval("$0.textContent")
-    //         .then((result) => {
-    //             console.log(result[0]);
-    //         });
-    // }
-    //
-    // elements.onSelectionChanged.addListener(handleSelectedElement);
+    // 展示的时候开始监听
+    sidebar.onShown.addListener(getAcssClass);
 
-    //
-    // function updateElementProperties() {
-    //     // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setExpression
-    //     // sidebar.setExpression('(' + handleContents.toString() + ')()');
-    //
-    //     console.log('===13==');
-    //
-    //     // chrome.devtools.inspectedWindow.eval('setSelectedElement($0)',
-    //     //     { useContentScriptContext: true });
-    //
-    //     // chrome.devtools.inspectedWindow.eval("setSelectedElement($0)",
-    //     //     { useContentScriptContext: true });
-    //     // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setObject
-    //     // sidebar.setObject({
-    //     //     some_data: {
-    //     //         name: 'sdfdsfds',
-    //     //         age: 2
-    //     //     }
-    //     // });
-    //
-    //     /// https://developer.chrome.com/extensions/devtools.panels#method-ExtensionSidebarPane-setPage
-    // }
-    //
-    // updateElementProperties();
+    elements.onSelectionChanged.addListener(updateAcssClass);
 
     // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-onSelectionChanged
     // elements.onSelectionChanged.addListener(updateElementProperties);
