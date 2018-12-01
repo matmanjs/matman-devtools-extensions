@@ -63,19 +63,23 @@ elements.createSidebarPane('matman', function (sidebar) {
         chrome.devtools.inspectedWindow.eval(
             '(' + handleContents.toString() + ')()',
             (result, isException) => {
-                if (!panelWindow) {
-                    return;
-                }
+                // if (!panelWindow) {
+                //     return;
+                // }
                 console.log(result);
-                const status = panelWindow.document.querySelector('#app');
-                const acssClass = result && (typeof result === 'object') ? JSON.stringify(result) : result;
-                if (status) {
-                    status.innerHTML = acssClass;
+                // const status = panelWindow.document.querySelector('#app');
+                // const acssClass = result && (typeof result === 'object') ? JSON.stringify(result) : result;
+                // if (status) {
+                //     status.innerHTML = acssClass;
+                //
+                //     chrome.extension.sendMessage({ greeting: 'hello', acssClass:acssClass }, function (response) {
+                //         console.log('--i got response--', response);
+                //     });
+                // }
 
-                    chrome.extension.sendMessage({ greeting: 'hello', acssClass:acssClass }, function (response) {
-                        console.log('--i got response--', response);
-                    });
-                }
+                chrome.extension.sendMessage({ greeting: 'hello', result:result }, function (response) {
+                    console.log('--i got response--', response);
+                });
             }
         );
     };
