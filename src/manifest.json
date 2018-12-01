@@ -1,0 +1,7 @@
+{
+  "name": "matmanjs",
+  "version": "1.0",
+  "description": "matmanjs  Developer Tools",
+  "devtools_page": "devtools.html",
+  "manifest_version": 2
+}
