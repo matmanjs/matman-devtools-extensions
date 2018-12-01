@@ -26,18 +26,28 @@ function handleContents() {
 
 var elements = chrome.devtools.panels.elements;
 
+// elements.createSidebarPane('matman', function (sidebar) {
+//     function updateElementProperties() {
+//         // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setExpression
+//         // sidebar.setExpression('(' + handleContents.toString() + ')()');
+//
+//         // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setObject
+//         // sidebar.setObject({
+//         //     some_data: {
+//         //         name: 'sdfdsfds',
+//         //         age: 2
+//         //     }
+//         // });
+//
+//         /// https://developer.chrome.com/extensions/devtools.panels#method-ExtensionSidebarPane-setPage
+//     }
+//
+//     updateElementProperties();
+//
+//     elements.onSelectionChanged.addListener(updateElementProperties);
+// });
+
 elements.createSidebarPane('matman', function (sidebar) {
-    function updateElementProperties() {
-        // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setExpression
-        sidebar.setExpression('(' + handleContents.toString() + ')()');
-
-        // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setObject
-        // sidebar.setObject({ some_data: "Some data to show" });
-
-        /// https://developer.chrome.com/extensions/devtools.panels#method-ExtensionSidebarPane-setPage
-    }
-
-    updateElementProperties();
-
-    elements.onSelectionChanged.addListener(updateElementProperties);
+    sidebar.setPage('dashboard.html');
+    sidebar.setHeight('12ex');
 });
