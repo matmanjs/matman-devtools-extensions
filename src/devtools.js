@@ -43,7 +43,7 @@ function handleContents() {
     })(curElem);
 
     window.postMessage({
-        greeting: 'hello there!',
+        greeting: 'injected script  window.postMessage',
         source: 'my-devtools-extension',
         data: data
     }, '*');
@@ -73,7 +73,7 @@ elements.createSidebarPane('matman', function (sidebar) {
 
                 // https://developer.chrome.com/extensions/runtime#method-sendMessage
                 chrome.runtime.sendMessage({ greeting: 'hello', result: result }, function (response) {
-                    console.log('--i got response at devtool.js--', response);
+                    console.log('[devtools.js] --i got response at devtool.js--', response);
                 });
             }
         );

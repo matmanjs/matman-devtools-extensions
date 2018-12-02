@@ -1,10 +1,12 @@
 // background.js
 var connections = {};
 
+// 建立长链接监听事件
 chrome.runtime.onConnect.addListener(function (port) {
+    console.log('[background.js] chrome.runtime.onConnect in----', port);
 
     var extensionListener = function (message, sender, sendResponse) {
-        console.log('---background.js recieve----',message)
+        console.log('---[background.js]  extensionListener recieve----', message);
         // The original connection event doesn't include the tab ID of the
         // DevTools page, so we need to send it explicitly.
         if (message.name == 'init') {
@@ -34,6 +36,7 @@ chrome.runtime.onConnect.addListener(function (port) {
 // 从 content-script 获得消息之后，再透传到我们的 devTools 中
 // Receive message from content script and relay to the devTools page for the current tab
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+    console.log('[background.js] chrome.runtime.onMessage', request)
     // Messages from content scripts should have sender.tab set
     if (sender.tab) {
         var tabId = sender.tab.id;
