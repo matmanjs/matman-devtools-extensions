@@ -1,24 +1,3 @@
-// // Create a connection to the background page
-// var backgroundPageConnection = chrome.runtime.connect({
-//     name: 'panel'
-// });
-//
-// const inspectedWindowId = chrome.devtools.inspectedWindow.tabId;
-//
-// // backgroundPageConnection.postMessage({
-// //     name: 'init',
-// //     tabId: inspectedWindowId
-// // });
-//
-// // Listen to messages from the background page
-// backgroundPageConnection.onMessage.addListener(function (message) {
-//     console.log('[panel-sidbar.js] ------backgroundPageConnection.onMessage-----', message);
-//
-//     if (message.updatedTabId === inspectedWindowId) {
-//         console.log('[panel-sidbar.js] ------curent inspected window-----');
-//     }
-// });
-
 var app = new Vue({
     el: '#app',
     data: {
