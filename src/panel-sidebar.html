@@ -20,12 +20,10 @@
         </div>
         <div class="panel-body">
             <form class="form-horizontal">
-                <div v-for="(item, index) in selectorList">
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">推荐{{index+1}}</label>
-                        <div class="col-sm-10">
-                            <input type="text" class="form-control" :value="item">
-                        </div>
+                <div class="form-group" v-for="(item, index) in selectorList">
+                    <label class="col-sm-2 control-label">推荐{{index+1}}</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" :value="item">
                     </div>
                 </div>
             </form>
@@ -38,19 +36,11 @@
             <th>值</th>
             <th>操作</th>
         </tr>
-        <tr>
-            <td>文本</td>
-            <td>Hi,文本</td>
+        <tr v-for="(item, index) in infoList">
+            <td>{{item.key}}</td>
+            <td>{{item.value}}</td>
             <td>
-                <button class="btn btn-primary" @click="showDetail">详细</button>
-            </td>
-        </tr>
-
-        <tr>
-            <td>样式</td>
-            <td>{width: 58, height:99}</td>
-            <td>
-                <button class="btn btn-primary" @click="showDetail">详细</button>
+                <button class="btn btn-primary" @click="showDetail(item, index)">详细</button>
             </td>
         </tr>
     </table>
@@ -59,16 +49,16 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                            aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Modal title</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">详细信息</h4>
                 </div>
                 <div class="modal-body">
-                    <p>One fine body&hellip;</p>
+                    <p>{{detailItem}}</p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                 </div>
             </div>
         </div>
