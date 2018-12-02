@@ -18,3 +18,9 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         ccc: 'response from content-script.js for ' + message
     });
 });
+
+function setSelectedElement(el) {
+    // do something with the selected element
+
+    console.log('--setSelectedElement2--', el, { j: window.jQuery });
+}

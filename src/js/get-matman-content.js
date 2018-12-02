@@ -13,7 +13,7 @@ new Vue({
             console.log('--onMessage--', message);
 
             sendResponse({
-                farewell: 'i got your message, and say '+message.result && message.result.text,
+                farewell: 'i got your message, and say ' + message && message.result && message.result.text
             });
 
             self.showData = JSON.stringify(message);

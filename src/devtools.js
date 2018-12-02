@@ -22,34 +22,27 @@ function handleContents() {
         data.jquery = false;
     }
 
+    // 选择器
+    data.selector = (function (dom) {
+        var path;
+
+        for (path = ''; dom && dom.nodeType == 1; dom = dom.parentNode) {
+            // 有 id 的情况直接退出
+            if (dom.id) {
+                path = '#' + dom.id + ' ' + path;
+                break;
+            }
+
+            // 可能会有多个class
+            if (dom.className) {
+                path = '.' + dom.className.split(/\s+/).join('.') + ' ' + path;
+            }
+        }
+
+        return path.trim();
+    })(curElem);
+
     return data;
-}
-
-/**
- 获取元素的xpath
- 特性：
- - 转换xpath为csspath进行jQuery元素获取
- - 仅生成自然表述路径（不支持非、或）
- @param dom {String/Dom} 目标元素
- @returns {String} dom的xpath路径
- */
-function getDomSelector(dom) {
-    var path;
-
-    for (path = ''; dom && dom.nodeType == 1; dom = dom.parentNode) {
-        // 有 id 的情况直接退出
-        if (dom.id) {
-            path = '#' + dom.id + ' ' + path;
-            break;
-        }
-
-        // 可能会有多个class
-        if (dom.className) {
-            path = '.' + dom.className.split(/\s+/).join('.') + ' ' + path;
-        }
-    }
-
-    return path.trim();
 }
 
 var elements = chrome.devtools.panels.elements;
@@ -78,6 +71,9 @@ elements.createSidebarPane('matman', function (sidebar) {
                 });
             }
         );
+
+        chrome.devtools.inspectedWindow.eval("setSelectedElement($0)",
+            { useContentScriptContext: true });
     };
 
     // 展示的时候开始监听
@@ -85,6 +81,8 @@ elements.createSidebarPane('matman', function (sidebar) {
 
     // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-onSelectionChanged
     elements.onSelectionChanged.addListener(updateAcssClass);
+
+    updateAcssClass();
 });
 
 
