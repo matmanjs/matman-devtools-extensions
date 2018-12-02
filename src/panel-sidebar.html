@@ -2,22 +2,89 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>sidebar</title>
+    <title>matman DevTools</title>
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<div id="app">
+<div id="app" class="container">
     <textarea :value="test"></textarea>
     <textarea :value="showData"></textarea>
 
-    <button class="btn btn-default" v-on:click="handleClick">点击我获取信息1</button>
+    <button class="btn btn-default" @click="handleClick">点击我获取信息</button>
     <div>{{tips}}</div>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h3 class="panel-title">DOM 元素的 selector</h3>
+        </div>
+        <div class="panel-body">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label for="selector_01" class="col-sm-2 control-label">推荐值1</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="selector_01" value="#xx .yy .cc">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="selector_02" class="col-sm-2 control-label">推荐值2</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="selector_02" value="#xx .yy div">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <table class="table table-bordered">
+        <tr>
+            <th>属性</th>
+            <th>值</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+            <td>文本</td>
+            <td>Hi,文本</td>
+            <td>
+                <button class="btn btn-primary" @click="showDetail">详细</button>
+            </td>
+        </tr>
+
+        <tr>
+            <td>样式</td>
+            <td>{width: 58, height:99}</td>
+            <td>
+                <button class="btn btn-primary" @click="showDetail">详细</button>
+            </td>
+        </tr>
+    </table>
+
+    <div id="detail_modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
-<script src="js/vue.2.5.17.min.js"></script>
-<script src="js/panel-sidebar-common.js"></script>
-<script src="js/panel-sidebar.js"></script>
+<script src="./js/jquery.3.3.1.min.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+
+<script src="./js/vue.2.5.17.min.js"></script>
+<script src="./js/panel-sidebar-common.js"></script>
+<script src="./js/panel-sidebar.js"></script>
 
 </body>
 </html>

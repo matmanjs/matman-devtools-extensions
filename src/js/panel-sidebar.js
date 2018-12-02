@@ -15,6 +15,10 @@ var app = new Vue({
             }, (response) => {
                 this.tips = response;
             });
+        },
+
+        showDetail: function () {
+            $('#detail_modal').modal();
         }
     },
     created() {
@@ -22,5 +26,6 @@ var app = new Vue({
         gUtils.listenMsgFromContentScript((message) => {
             this.showData = JSON.stringify(message);
         });
+
     }
 });
