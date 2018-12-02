@@ -1,5 +1,7 @@
 console.log('[matman-devtools] content scripts loaded');
 
+const MATMAN_DEVTOOLS_DEBUG = true;
+
 /**
  * 消息类型
  * @type {Object}
@@ -16,7 +18,10 @@ let matmanDevtoolsSelectedDom;
  * @param selectedDom 当前选中的 DOM 元素
  */
 function setSelectedElement(selectedDom) {
-    console.log('[matman-devtools] selected dom', selectedDom);
+    if (MATMAN_DEVTOOLS_DEBUG) {
+        console.log('[matman-devtools] selected dom', selectedDom);
+    }
+
     matmanDevtoolsSelectedDom = selectedDom;
 
     // 获取相关数据
@@ -28,6 +33,10 @@ function setSelectedElement(selectedDom) {
         _webviewloaded: window._webviewloaded
     };
 
+    if (MATMAN_DEVTOOLS_DEBUG) {
+        console.log('[matman-devtools] selected dom data', data);
+    }
+
     // 传递数据到 DevTools page
     chrome.runtime.sendMessage({
         type: MATMAN_DEVTOOLS_MESSAGE_TYPE.SEND_MESSAGE_AFTER_SELECTED_ELEMENT,
@@ -37,14 +46,18 @@ function setSelectedElement(selectedDom) {
 
 // 加载完 jQuery 之后，可以做一些其他的事情
 $(document).ready(function () {
-    console.log('[matman-devtools] jQuery is ready!');
+    if (MATMAN_DEVTOOLS_DEBUG) {
+        console.log('[matman-devtools] jQuery is ready!');
+    }
 });
 
 // 监听来自 DevTools page 的消息，然后再回调信息
 // 例如可获取到 DOM 或 window 等信息，再传回到 DevTools page 做展示
 // DevTools page 通过 chrome.tabs.sendMessage 来发送消息
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    console.log('[matman-devtools] receive message', message);
+    if (MATMAN_DEVTOOLS_DEBUG) {
+        console.log('[matman-devtools] receive message', message);
+    }
 
     // 如果当前没有已选中的 dom ，则不做其他处理
     if (!matmanDevtoolsSelectedDom) {
@@ -65,6 +78,10 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
         className: selectedDom.getAttribute('class'),
         text: selectedDom.innerHTML
     };
+
+    if (MATMAN_DEVTOOLS_DEBUG) {
+        console.log('[matman-devtools] selected dom data', data);
+    }
 
     // 传回到 DevTools page
     sendResponse({
