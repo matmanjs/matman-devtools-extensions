@@ -3,15 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>sidebar</title>
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<h1>工作台8</h1>
 
 <div id="app">
     <textarea :value="test"></textarea>
     <textarea :value="showData"></textarea>
 
-    <button v-on:click="handleClick">点击我获取信息2</button>
+    <button class="btn btn-default" v-on:click="handleClick">点击我获取信息</button>
     <div>{{tips}}</div>
 </div>
 
