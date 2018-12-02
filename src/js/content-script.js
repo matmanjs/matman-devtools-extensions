@@ -11,19 +11,40 @@ $(document).ready(function () {
 });
 
 // 监听来自 DevTools page 的消息，然后再回调信息
-// 例如可获取到 DOM 或 window 的信息，再传回到 DevTools page 做展示
+// 例如可获取到 DOM 或 window 等信息，再传回到 DevTools page 做展示
 // DevTools page 通过 chrome.tabs.sendMessage 来发送消息
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
-    console.log('--onMessage in content-script.js--', message);
+    console.log('[content-script.js] chrome.runtime.onMessage', message);
+    // 接收到新的指令，获取到 DOM 或 window 的信息
+
+    // 传回到 DevTools page
     sendResponse({
-        ccc: 'response from content-script.js for ' + message
+        type: '[content-script.js] chrome.runtime.onMessage response',
+        data: 'I got it, and reply to you: ' + (message && (typeof message === 'object') ? JSON.stringify(message) : message)
     });
 });
 
-function setSelectedElement(el) {
-    // do something with the selected element
+/**
+ * 设置当前选中的元素，由 DevTools 传递过来
+ * @param selectedDom 当前选中的 DOM 元素
+ */
+function setSelectedElement(selectedDom) {
+    console.log('[content-script.js] setSelectedElement', selectedDom);
 
-    console.log('--setSelectedElement5--', el, { j: window.jQuery });
+    // 获取相关数据
+    const data = {
+        className: selectedDom.getAttribute('class'),
+        text: selectedDom.innerHTML,
+        hasJquery: !!window.jQuery,
+        pageTitle: document.title,
+        _webviewloaded: window._webviewloaded
+    };
+
+    // 传递数据到 DevTools page
+    chrome.runtime.sendMessage({
+        type: '[content-script.js] sendMessage',
+        data: data
+    });
 }
 
 // 监听 message 事件，最后再将消息透传到 DevTools，

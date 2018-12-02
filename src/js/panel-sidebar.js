@@ -5,10 +5,10 @@ var backgroundPageConnection = chrome.runtime.connect({
 
 const inspectedWindowId = chrome.devtools.inspectedWindow.tabId;
 
-backgroundPageConnection.postMessage({
-    name: 'init',
-    tabId: inspectedWindowId
-});
+// backgroundPageConnection.postMessage({
+//     name: 'init',
+//     tabId: inspectedWindowId
+// });
 
 // Listen to messages from the background page
 backgroundPageConnection.onMessage.addListener(function (message) {
@@ -38,14 +38,18 @@ new Vue({
             });
 
             self.showData = JSON.stringify(message);
-
-            const inspectedWindowId = chrome.devtools.inspectedWindow.tabId;
-
-            // https://developer.chrome.com/extensions/devtools#content-script-to-devtools
-            // https://developer.chrome.com/extensions/tabs#method-sendMessage
-            chrome.tabs.sendMessage(inspectedWindowId, { text: message.result && message.result.text }, function (response) {
-                console.log('[panel-sidbar.js] --chrome.tabs.sendMessage from content scripts--', response);
-            });
         });
     }
 });
+
+function sendMsgToContentScript(message) {
+    const inspectedWindowId = chrome.devtools.inspectedWindow.tabId;
+
+    // https://developer.chrome.com/extensions/devtools#content-script-to-devtools
+    // https://developer.chrome.com/extensions/tabs#method-sendMessage
+    chrome.tabs.sendMessage(inspectedWindowId, {
+        text: message.result && message.result.text || 'unknown'
+    }, function (response) {
+        console.log('[panel-sidbar.js] --chrome.tabs.sendMessage from content scripts--', response);
+    });
+}
