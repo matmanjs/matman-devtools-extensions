@@ -85,10 +85,17 @@
                             <dt>web-crawl-util 写法</dt>
                             <dd><code>useJquery.getText('{{selectedSelector}}')</code></dd>
                         </dl>
-
                     </div>
                     <div class="type-getText" v-if="detailItem.type==='getComputedStyle'">
-                        <h1>getComputedStyle</h1>
+                        <dl class="dl-horizontal">
+                            <dt>jQuery 写法</dt>
+                            <dd><code>document.defaultView.getComputedStyle($('{{selectedSelector}}')[0]);</code></dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>web-crawl-util 写法</dt>
+                            <dd><code>useJquery.getComputedStyle('{{selectedSelector}}')</code></dd>
+                            <dd><code>useJquery.getStyle('{{selectedSelector}}')</code></dd>
+                        </dl>
                     </div>
 
                 </div>
