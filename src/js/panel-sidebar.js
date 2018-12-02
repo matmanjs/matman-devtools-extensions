@@ -3,7 +3,9 @@ var app = new Vue({
     data: {
         test: '# hello',
         showData: '',
-        tips: 'init tips'
+        tips: 'init tips',
+        selectorList: [],
+        infoList: []
     },
     methods: {
         handleClick: function (event) {
@@ -25,6 +27,8 @@ var app = new Vue({
         // 监听来自 content script 的消息，并处理回调
         gUtils.listenMsgFromContentScript((message) => {
             this.showData = JSON.stringify(message);
+            // this.selectorList = message.data.selectorList;
+            this.infoList = message.data.infoList;
         });
 
     }

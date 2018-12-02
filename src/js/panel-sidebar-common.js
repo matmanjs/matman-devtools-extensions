@@ -1,6 +1,16 @@
 const gMockData = {
     data1: {
-        hellow: 'world'
+        selectorList: ['#xxx .yyy .zzz', '.aa .bb img'],
+        infoList: [{
+            key: '文本内容',
+            value: 'Hi,文本'
+        }, {
+            key: '计算样式',
+            value: {
+                width: 58,
+                height: 99
+            }
+        }]
     }
 };
 
