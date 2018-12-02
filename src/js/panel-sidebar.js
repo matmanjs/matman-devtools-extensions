@@ -19,11 +19,25 @@ backgroundPageConnection.onMessage.addListener(function (message) {
     }
 });
 
-new Vue({
+var app = new Vue({
     el: '#app',
     data: {
         test: '# hello',
-        showData: ''
+        showData: '',
+        tips: 'init tips'
+    },
+    methods: {
+        handleClick: function (event) {
+            console.log('[panel-sidbar.js] --handleClick--');
+            this.tips = 'changed tips';
+
+            sendMsgToContentScript({
+                type: 'GET_NEW_TIPS'
+            }, (response) => {
+                console.log('[panel-sidbar.js] --chrome.tabs.sendMessage from content scripts--', response);
+                this.tips = response;
+            });
+        }
     },
     created() {
         console.log('[panel-sidbar.js] --created--');
@@ -42,14 +56,14 @@ new Vue({
     }
 });
 
-function sendMsgToContentScript(message) {
-    const inspectedWindowId = chrome.devtools.inspectedWindow.tabId;
-
+/**
+ * 发送消息给 content script，并处理回调
+ *
+ * @param {Object} message 消息
+ * @param {Function} callback
+ */
+function sendMsgToContentScript(message, callback) {
     // https://developer.chrome.com/extensions/devtools#content-script-to-devtools
     // https://developer.chrome.com/extensions/tabs#method-sendMessage
-    chrome.tabs.sendMessage(inspectedWindowId, {
-        text: message.result && message.result.text || 'unknown'
-    }, function (response) {
-        console.log('[panel-sidbar.js] --chrome.tabs.sendMessage from content scripts--', response);
-    });
+    chrome.tabs.sendMessage(chrome.devtools.inspectedWindow.tabId, message, callback);
 }
