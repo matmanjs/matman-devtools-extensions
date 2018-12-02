@@ -18,6 +18,8 @@ Chrome devtools for [matman](https://github.com/matmanjs/matman) 。
 
 当改变了代码之后，在 `chrome://extensions/` 找到本程序，点击 "刷新" 的图标，然后再重新打开开发者工具。
 
+> 有时候刷新了程序还不够，可能还需要刷新页面，尤其是有 content script 的场景；为了识别当时加载的时最新的代码，建议在某些地方输出不一样的标记，例如 panel ui 中，或者使用 `console.log` 输出不一样的标记。
+
 
 ## 更多资料
 

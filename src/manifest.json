@@ -4,6 +4,11 @@
   "description": "Developer Tools for matman",
   "devtools_page": "devtools.html",
   "manifest_version": 2,
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
   "content_scripts": [
     {
       "matches": [

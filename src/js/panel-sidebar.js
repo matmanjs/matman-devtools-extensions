@@ -1,3 +1,24 @@
+// Create a connection to the background page
+var backgroundPageConnection = chrome.runtime.connect({
+    name: 'panel'
+});
+
+backgroundPageConnection.postMessage({
+    name: 'init',
+    tabId: chrome.devtools.inspectedWindow.tabId
+});
+
+const inspectedWindowId = chrome.devtools.inspectedWindow.tabId;
+
+// Listen to messages from the background page
+backgroundPageConnection.onMessage.addListener(function (message) {
+    console.log('------backgroundPageConnection.onMessage-----', message);
+
+    if (message.updatedTabId === inspectedWindowId) {
+        console.log('------curent inspected window-----');
+    }
+});
+
 new Vue({
     el: '#app',
     data: {
@@ -20,6 +41,7 @@ new Vue({
 
             const inspectedWindowId = chrome.devtools.inspectedWindow.tabId;
 
+            // https://developer.chrome.com/extensions/devtools#content-script-to-devtools
             // https://developer.chrome.com/extensions/tabs#method-sendMessage
             chrome.tabs.sendMessage(inspectedWindowId, { text: message.result && message.result.text }, function (response) {
                 console.log('--chrome.tabs.sendMessage from get-matman-content.js--', response);

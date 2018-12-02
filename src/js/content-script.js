@@ -22,5 +22,25 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 function setSelectedElement(el) {
     // do something with the selected element
 
-    console.log('--setSelectedElement2--', el, { j: window.jQuery });
+    console.log('--setSelectedElement3--', el, { j: window.jQuery });
 }
+
+window.addEventListener('message', function (event) {
+    console.log('------window.addEventListener message------', event, event.data);
+    // Only accept messages from the same frame
+    if (event.source !== window) {
+        return;
+    }
+
+    var message = event.data;
+
+    // Only accept messages that we know are ours
+    if (typeof message !== 'object' || message === null ||
+        !message.source === 'my-devtools-extension') {
+        return;
+    }
+
+    chrome.runtime.sendMessage(message);
+});
+
+

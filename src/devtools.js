@@ -42,6 +42,12 @@ function handleContents() {
         return path.trim();
     })(curElem);
 
+    window.postMessage({
+        greeting: 'hello there!',
+        source: 'my-devtools-extension',
+        data: data
+    }, '*');
+
     return data;
 }
 
@@ -49,7 +55,7 @@ var elements = chrome.devtools.panels.elements;
 
 elements.createSidebarPane('matman', function (sidebar) {
     // https://developer.chrome.com/extensions/devtools.panels#method-ExtensionSidebarPane-setPage
-    sidebar.setPage('sidebar.html');
+    sidebar.setPage('panel-sidebar.html');
     sidebar.setHeight('12ex');
 
     let panelWindow;
@@ -72,7 +78,7 @@ elements.createSidebarPane('matman', function (sidebar) {
             }
         );
 
-        chrome.devtools.inspectedWindow.eval("setSelectedElement($0)",
+        chrome.devtools.inspectedWindow.eval('setSelectedElement($0)',
             { useContentScriptContext: true });
     };
 
