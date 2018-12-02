@@ -3,13 +3,22 @@ const gMockData = {
         selectorList: ['#xxx .yyy .zzz', '.aa .bb img'],
         infoList: [{
             key: '文本内容',
-            value: 'Hi,文本'
+            value: 'Hi,文本',
+            type: 'getText'
+            // codeList:[{
+            //     lib:'jQuery',
+            //     code:'.text()'
+            // },{
+            //     lib:'web-crawl-util',
+            //     code:'.text()'
+            // }]
         }, {
             key: '计算样式',
             value: {
                 width: 58,
                 height: 99
-            }
+            },
+            type: 'getComputedStyle'
         }]
     }
 };

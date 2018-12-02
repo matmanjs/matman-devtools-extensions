@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>matman DevTools</title>
     <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/panel-sidebar.css" rel="stylesheet">
 </head>
 <body>
 
@@ -32,7 +33,7 @@
 
     <table class="table table-bordered">
         <tr>
-            <th>属性</th>
+            <th>目标</th>
             <th>值</th>
             <th>操作</th>
         </tr>
@@ -55,7 +56,41 @@
                     <h4 class="modal-title">详细信息</h4>
                 </div>
                 <div class="modal-body">
-                    <p>{{detailItem}}</p>
+                    <table class="table table-bordered">
+                        <tr>
+                            <th>目标</th>
+                            <th>值</th>
+                        </tr>
+                        <tr>
+                            <td>{{detailItem.key}}</td>
+                            <td>{{detailItem.value}}</td>
+                        </tr>
+                    </table>
+
+                    <div class="tips">
+                        <ul>
+                            <li>已注入了 jQuery，可直接使用 <code>$</code> 或 <code>jQuery</code> ;</li>
+                            <li><code>const {useJquery} = require('web-crawl-util');</code> ;</li>
+                        </ul>
+                    </div>
+
+                    <hr>
+
+                    <div class="type-getText" v-if="detailItem.type==='getText'">
+                        <dl class="dl-horizontal">
+                            <dt>jQuery 写法</dt>
+                            <dd><code>$.trim($('{{selectedSelector}}').text())</code></dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>web-crawl-util 写法</dt>
+                            <dd><code>useJquery.getText('{{selectedSelector}}')</code></dd>
+                        </dl>
+
+                    </div>
+                    <div class="type-getText" v-if="detailItem.type==='getComputedStyle'">
+                        <h1>getComputedStyle</h1>
+                    </div>
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

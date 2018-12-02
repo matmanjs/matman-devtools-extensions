@@ -6,6 +6,7 @@ var app = new Vue({
         tips: 'init tips',
         selectorList: [],
         infoList: [],
+        selectedSelector: '',
         detailItem: {}
     },
     methods: {
@@ -33,6 +34,7 @@ var app = new Vue({
         gUtils.listenMsgFromContentScript((message) => {
             this.showData = JSON.stringify(message);
             this.selectorList = message.data.selectorList;
+            this.selectedSelector = message.data.selectorList[0] || '';
             this.infoList = message.data.infoList;
         });
 
