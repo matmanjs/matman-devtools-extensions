@@ -54,29 +54,8 @@ function getDomSelector(dom) {
 
 var elements = chrome.devtools.panels.elements;
 
-// elements.createSidebarPane('matman', function (sidebar) {
-//     function updateElementProperties() {
-//         // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setExpression
-//         // sidebar.setExpression('(' + handleContents.toString() + ')()');
-//
-//         // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-setObject
-//         // sidebar.setObject({
-//         //     some_data: {
-//         //         name: 'sdfdsfds',
-//         //         age: 2
-//         //     }
-//         // });
-//
-//         /// https://developer.chrome.com/extensions/devtools.panels#method-ExtensionSidebarPane-setPage
-//     }
-//
-//     updateElementProperties();
-//
-//     elements.onSelectionChanged.addListener(updateElementProperties);
-// });
-
 elements.createSidebarPane('matman', function (sidebar) {
-
+    // https://developer.chrome.com/extensions/devtools.panels#method-ExtensionSidebarPane-setPage
     sidebar.setPage('sidebar.html');
     sidebar.setHeight('12ex');
 
@@ -91,22 +70,11 @@ elements.createSidebarPane('matman', function (sidebar) {
         chrome.devtools.inspectedWindow.eval(
             '(' + handleContents.toString() + ')()',
             (result, isException) => {
-                // if (!panelWindow) {
-                //     return;
-                // }
                 console.log(result);
-                // const status = panelWindow.document.querySelector('#app');
-                // const acssClass = result && (typeof result === 'object') ? JSON.stringify(result) : result;
-                // if (status) {
-                //     status.innerHTML = acssClass;
-                //
-                //     chrome.extension.sendMessage({ greeting: 'hello', acssClass:acssClass }, function (response) {
-                //         console.log('--i got response--', response);
-                //     });
-                // }
 
+                // https://developer.chrome.com/extensions/runtime#method-sendMessage
                 chrome.runtime.sendMessage({ greeting: 'hello', result: result }, function (response) {
-                    console.log('--i got response333--', response);
+                    console.log('--i got response at devtool.js--', response);
                 });
             }
         );
@@ -115,10 +83,8 @@ elements.createSidebarPane('matman', function (sidebar) {
     // 展示的时候开始监听
     sidebar.onShown.addListener(getAcssClass);
 
-    elements.onSelectionChanged.addListener(updateAcssClass);
-
     // https://developer.chrome.com/extensions/devtools_panels#method-ExtensionSidebarPane-onSelectionChanged
-    // elements.onSelectionChanged.addListener(updateElementProperties);
+    elements.onSelectionChanged.addListener(updateAcssClass);
 });
 
 

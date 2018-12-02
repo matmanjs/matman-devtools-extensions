@@ -1,5 +1,3 @@
-
-
 new Vue({
     el: '#app',
     data: {
@@ -10,18 +8,23 @@ new Vue({
         console.log('--created--');
         const self = this;
 
-        // chrome.extension.onMessage.addListener(
-        chrome.runtime.onMessage.addListener(
-            function (request, sender, sendResponse) {
-                console.log('--onMessage--', request);
-                sendResponse({ farewell: 'i got your message, and say goodbye', test: document.title });
+        // https://developer.chrome.com/extensions/runtime#event-onMessage
+        chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+            console.log('--onMessage--', message);
 
-                self.showData = JSON.stringify(request);
-
-                chrome.runtime.sendMessage({ ooo:22323 }, function (response) {
-                    console.log('--sadfsdfsdfsdfsdfsdfsd--', response);
-                });
+            sendResponse({
+                farewell: 'i got your message, and say '+message.result && message.result.text,
             });
+
+            self.showData = JSON.stringify(message);
+
+            const inspectedWindowId = chrome.devtools.inspectedWindow.tabId;
+
+            // https://developer.chrome.com/extensions/tabs#method-sendMessage
+            chrome.tabs.sendMessage(inspectedWindowId, { text: message.result && message.result.text }, function (response) {
+                console.log('--chrome.tabs.sendMessage from get-matman-content.js--', response);
+            });
+        });
     }
 });
 
