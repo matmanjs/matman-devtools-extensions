@@ -9,11 +9,13 @@
 <body>
 
 <div id="app" class="container">
-    <textarea :value="test"></textarea>
-    <textarea :value="showData"></textarea>
+    <div style="display:none">
+        <textarea :value="test"></textarea>
+        <textarea :value="showData"></textarea>
 
-    <button class="btn btn-default" @click="handleClick">点击我获取信息</button>
-    <div>{{tips}}</div>
+        <button class="btn btn-default" @click="handleClick">点击我获取信息</button>
+        <div>{{tips}}</div>
+    </div>
 
     <div class="panel panel-default">
         <div class="panel-heading">

@@ -27,10 +27,11 @@ function setSelectedElement(selectedDom) {
     // 获取相关数据
     const data = {
         selectorList: [getSelector1(selectedDom)],
-        text: selectedDom.innerHTML,
-        hasJquery: !!window.jQuery,
-        pageTitle: document.title,
-        _webviewloaded: window._webviewloaded
+        infoList: [{
+            key: '文本内容',
+            value: $.trim($(selectedDom).text()),
+            type: 'getText'
+        }]
     };
 
     if (MATMAN_DEVTOOLS_DEBUG) {
