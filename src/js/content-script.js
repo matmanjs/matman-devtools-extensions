@@ -26,7 +26,7 @@ function setSelectedElement(selectedDom) {
 
     // 获取相关数据
     const data = {
-        className: selectedDom.getAttribute('class'),
+        selectorList: [getSelector1(selectedDom)],
         text: selectedDom.innerHTML,
         hasJquery: !!window.jQuery,
         pageTitle: document.title,
@@ -115,5 +115,27 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
 //     });
 // });
 
+function getSelector1(dom) {
+    let path;
+    let i;
+
+    for (path = '', i = 0; dom && dom.nodeType === 1; dom = dom.parentNode, i++) {
+        // 有 id 的情况直接退出
+        if (dom.id) {
+            path = '#' + dom.id + ' ' + path;
+            break;
+        }
+
+        // 可能会有多个class
+        if (dom.className) {
+            path = '.' + dom.className.split(/\s+/).join('.') + ' ' + path;
+        } else if (i === 0) {
+            // 如果是当前 dom 节点，且无 class，则使用其 tagName
+            path = dom.tagName.toLowerCase();
+        }
+    }
+
+    return path.trim();
+}
 
 

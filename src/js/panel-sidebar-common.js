@@ -5,13 +5,6 @@ const gMockData = {
             key: '文本内容',
             value: 'Hi,文本',
             type: 'getText'
-            // codeList:[{
-            //     lib:'jQuery',
-            //     code:'.text()'
-            // },{
-            //     lib:'web-crawl-util',
-            //     code:'.text()'
-            // }]
         }, {
             key: '计算样式',
             value: {
