@@ -5,13 +5,10 @@ const gMockData = {
             key: '文本内容',
             value: 'Hi,文本',
             type: 'getText'
-        }, {
-            key: '计算样式',
-            value: {
-                width: 58,
-                height: 99
-            },
-            type: 'getComputedStyle'
+        },{
+            key: '是否存在',
+            value: 'true',
+            type: 'isExist'
         }]
     }
 };

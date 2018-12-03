@@ -7,7 +7,44 @@ var app = new Vue({
         selectorList: [],
         infoList: [],
         selectedSelector: '',
+        parentSelector: 'none',
         detailItem: {}
+    },
+    computed: {
+        hasParentSelector: function () {
+            return this.parentSelector !== 'none';
+        },
+        parentSelectorList: function () {
+            let arr = this.selectedSelector.split(/\s+/);
+            let list = [];
+            let tmp = '';
+
+            arr.forEach((item) => {
+                tmp = (tmp + ' ' + item).trim();
+                list.push({
+                    value: tmp,
+                    title: tmp
+                });
+            });
+
+            // 追加一个默认的在列表头部
+            list.unshift({
+                value: 'none',
+                title: '无'
+            });
+
+            // 要剔除自己
+            list.pop();
+
+            return list;
+        },
+        selectedSelectorDisplay: function () {
+            if (this.parentSelector === 'none') {
+                return this.selectedSelector;
+            } else {
+                return this.selectedSelector.replace(new RegExp(this.parentSelector), '').trim();
+            }
+        }
     },
     methods: {
         handleClick: function (event) {
