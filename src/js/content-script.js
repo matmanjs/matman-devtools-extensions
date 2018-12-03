@@ -137,7 +137,7 @@ function getSelector1(dom) {
 
         // 可能会有多个class
         if (dom.className) {
-            path = '.' + dom.className.split(/\s+/).join('.') + ' ' + path;
+            path = '.' + dom.className.trim().split(/\s+/).join('.') + ' ' + path;
         } else if (i === 0) {
             // 如果是当前 dom 节点，且无 class，则使用其 tagName
             path = dom.tagName.toLowerCase();
