@@ -31,6 +31,10 @@ function setSelectedElement(selectedDom) {
             key: '文本内容',
             value: $.trim($(selectedDom).text()),
             type: 'getText'
+        },{
+            key: '是否存在',
+            value: 'true',
+            type: 'isExist'
         }]
     };
 

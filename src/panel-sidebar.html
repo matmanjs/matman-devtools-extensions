@@ -74,6 +74,16 @@
 
                     <hr>
 
+                    <div class="type-getText" v-if="detailItem.type==='isExist'">
+                        <dl class="dl-horizontal">
+                            <dt>jQuery 写法</dt>
+                            <dd><code>$('{{selectedSelector}}').length &gt; 0</code></dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>web-crawl-util 写法</dt>
+                            <dd><code>useJquery.isExist('{{selectedSelector}}')</code></dd>
+                        </dl>
+                    </div>
                     <div class="type-getText" v-if="detailItem.type==='getText'">
                         <dl class="dl-horizontal">
                             <dt>jQuery 写法</dt>
