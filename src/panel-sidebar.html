@@ -115,8 +115,8 @@
                         <dl class="dl-horizontal">
                             <dt>jQuery 写法</dt>
                             <dd v-if="hasParentSelector">
-                                <code>$('{{selectedSelectorDisplay}}', '{{parentSelector}}').text()</code><br>
-                                <code>$('{{selectedSelectorDisplay}}', parentSelector).text()</code>
+                                <code>$.trim($('{{selectedSelectorDisplay}}', '{{parentSelector}}').text())</code><br>
+                                <code>$.trim($('{{selectedSelectorDisplay}}', parentSelector).text())</code>
                             </dd>
                             <dd v-else>
                                 <code>$.trim($('{{selectedSelectorDisplay}}').text())</code>
@@ -130,6 +130,29 @@
                             </dd>
                             <dd v-else>
                                 <code>useJquery.getText('{{selectedSelectorDisplay}}')</code>
+                            </dd>
+                        </dl>
+                    </div>
+
+                    <div class="type-getText" v-if="detailItem.type==='getTotal'">
+                        <dl class="dl-horizontal">
+                            <dt>jQuery 写法</dt>
+                            <dd v-if="hasParentSelector">
+                                <code>$('{{selectedSelectorDisplay}}', '{{parentSelector}}').children().length</code><br>
+                                <code>$('{{selectedSelectorDisplay}}', parentSelector).children().length</code>
+                            </dd>
+                            <dd v-else>
+                                <code>$('{{selectedSelectorDisplay}}').children().length</code>
+                            </dd>
+                        </dl>
+                        <dl class="dl-horizontal">
+                            <dt>web-crawl-util 写法</dt>
+                            <dd v-if="hasParentSelector">
+                                <code>useJquery.getTotal('{{selectedSelectorDisplay}}', '{{parentSelector}}')</code><br>
+                                <code>useJquery.getTotal('{{selectedSelectorDisplay}}', parentSelector)</code>
+                            </dd>
+                            <dd v-else>
+                                <code>useJquery.getTotal('{{selectedSelectorDisplay}}')</code>
                             </dd>
                         </dl>
                     </div>

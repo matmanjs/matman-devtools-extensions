@@ -35,6 +35,10 @@ function setSelectedElement(selectedDom) {
             key: '是否存在',
             value: 'true',
             type: 'isExist'
+        },{
+            key: '直接子元素个数',
+            value: $(selectedDom).children().length,
+            type: 'getTotal'
         }]
     };
 
