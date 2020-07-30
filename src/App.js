@@ -1,16 +1,17 @@
 import React from 'react';
-import MonacoEditor from 'react-monaco-editor';
+import { Layout } from 'antd';
+import Header from './components/Header';
+import Options from './components/Main';
 
 function App() {
   return (
-    <div className="App">
-      <MonacoEditor
-        width="800"
-        height="600"
-        language="javascript"
-        theme="vs-dark"
-      />
-    </div>
+    <Layout>
+      <Header />
+      <Options />
+      <Layout.Footer style={{ textAlign: 'center' }}>
+        Matman ©2020 Created by Matmanjs
+      </Layout.Footer>
+    </Layout>
   );
 }
 
