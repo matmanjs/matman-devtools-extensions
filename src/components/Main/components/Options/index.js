@@ -4,7 +4,7 @@ import useOptionsModel from '../../../../models/options';
 
 import styles from './index.module.scss';
 
-const plainOptions = ['isExist', 'text', 'length'];
+const plainOptions = ['text', 'length'];
 
 const Index = () => {
   const {
