@@ -1,7 +1,8 @@
-import React, { useMemo, useEffect, useState } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import MonacoEditor from 'react-monaco-editor';
 import useOptionsModel from '../../../../models/options';
 import useSelectorModel from '../../../../models/selector';
+import useCodeModel from '../../../../models/code';
 import { Tpl } from './tpl';
 
 const options = {
@@ -11,7 +12,7 @@ const options = {
 };
 
 const Index = () => {
-  const [code, setCode] = useState('// Typing....');
+  const { code, setCode } = useCodeModel();
 
   const { frameWork, codeMode } = useOptionsModel();
 
