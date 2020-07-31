@@ -1,7 +1,7 @@
 const path = require('path');
 const shelljs = require('shelljs');
 
-const dirs = ['sidebar'];
+const dirs = ['sidebar', 'panel'];
 const cwd = process.cwd();
 
 (function () {
