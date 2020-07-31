@@ -12,7 +12,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["jquery.3.3.1.min.js", "content-script.js", "useJquery.js"],
+      "js": ["jquery.3.3.1.min.js", "content-script.js"],
       "run_at": "document_start"
     }
   ],
