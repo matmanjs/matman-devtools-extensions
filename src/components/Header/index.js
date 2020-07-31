@@ -1,13 +1,11 @@
 /* global chrome */
 import React from 'react';
 import { Layout, Typography, Button } from 'antd';
-import useOptionsModel from '../../models/options';
 import useCodeModel from '../../models/code';
 
 import styles from './index.module.scss';
 
 const Index = () => {
-  const { frameWork } = useOptionsModel();
   const { code } = useCodeModel();
 
   const exec = () => {
@@ -31,7 +29,7 @@ const Index = () => {
       }}
     >
       <Typography.Title className={styles.title}>Matman</Typography.Title>
-      <Button disabled={frameWork !== 1} type="primary" onClick={exec}>
+      <Button type="primary" onClick={exec}>
         执行
       </Button>
     </Layout.Header>
