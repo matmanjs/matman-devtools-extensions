@@ -1,23 +1,26 @@
 import React from 'react';
-import { Layout, Divider } from 'antd';
-import Options from './components/Options';
+import { Layout } from 'antd';
 import Editor from './components/Editor';
+import Console from './components/Console';
 
 import styles from './index.module.scss';
 
 const Index = () => {
   return (
-    <Layout.Content style={{ padding: '50px', marginTop: 64 }}>
+    <Layout.Content style={{ padding: '50px', marginTop: 64, display: 'flex' }}>
       <div
         className={styles.siteLayoutBackground}
-        style={{ padding: 24, minHeight: 380 }}
+        style={{
+          padding: 12,
+          minHeight: 380,
+          flex: '1',
+        }}
       >
-        <Options />
+        <Console />
       </div>
-      <Divider />
       <div
         className={`${styles.siteLayoutBackground} ${styles.editorContainer}`}
-        style={{ padding: 24, height: 800 }}
+        style={{ padding: 12, height: 800, flex: '2', minWidth: 300 }}
       >
         <Editor />
       </div>

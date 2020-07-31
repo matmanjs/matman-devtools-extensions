@@ -6,4 +6,8 @@ elements.createSidebarPane('matman', function (sidebar) {
   sidebar.setHeight('12ex');
 });
 
-chrome.devtools.panels.create('matman-exec', 'panel/index.html');
+chrome.devtools.panels.create(
+  'matman-exec',
+  'icons/icon16.png',
+  'panel/index.html'
+);

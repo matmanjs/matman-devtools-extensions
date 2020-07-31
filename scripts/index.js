@@ -6,12 +6,6 @@ const cwd = process.cwd();
 
 (function () {
   const isInstall = process.env.install;
-  const filter = process.env.filter;
-
-  // 过滤需要的包
-  if (filter) {
-    dirs = dirs.filter((item) => item === filter);
-  }
 
   // 删除文件
   shelljs.rm('-rf', 'build');
