@@ -1,41 +1,27 @@
 {
   "name": "matman-devtools",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
   "scripts": {
-    "start": "craco start",
-    "build": "INLINE_RUNTIME_CHUNK=false craco build",
-    "test": "craco test"
+    "build:install": "cross-env install=true node scripts/index.js",
+    "build": "node scripts/index.js"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wangjq4214/matman-devtools.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/wangjq4214/matman-devtools/issues"
   },
+  "homepage": "https://github.com/wangjq4214/matman-devtools#readme",
   "dependencies": {
-    "@craco/craco": "^5.6.4",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "antd": "^4.5.1",
-    "craco-antd": "^1.18.1",
-    "hox": "^1.1.1",
-    "lodash.template": "^4.5.0",
-    "monaco-editor-webpack-plugin": "^1.9.0",
-    "node-sass": "^4.14.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-monaco-editor": "^0.39.1",
-    "react-scripts": "3.4.1"
+    "shelljs": "^0.8.4"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
   }
 }
