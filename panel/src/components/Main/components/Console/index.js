@@ -1,7 +1,10 @@
 import React from 'react';
 import { Console } from 'console-feed';
+import useConsoleModel from '../../../../models/console';
 
 const Index = () => {
+  const { consoleData } = useConsoleModel();
+
   return (
     <div
       style={{
@@ -11,7 +14,7 @@ const Index = () => {
         overflow: 'scroll',
       }}
     >
-      <Console logs={[{ method: 'log', data: ['23456'] }]} variant="dark" />
+      <Console logs={consoleData} variant="dark" />
     </div>
   );
 };
