@@ -119,3 +119,22 @@ function getSelector1(dom) {
 
   return path.trim();
 }
+
+// 向页面中注入 JS
+function injectCustomJs(jsPath) {
+  jsPath = jsPath || 'js/inject.js';
+
+  var temp = document.createElement('script');
+  temp.setAttribute('type', 'text/javascript');
+  temp.src = chrome.extension.getURL(jsPath);
+
+  temp.onload = function () {
+    this.parentNode.removeChild(this);
+  };
+
+  document.body.appendChild(temp);
+}
+
+injectCustomJs('lodash.min.js');
+
+injectCustomJs('useJquery.min.js');
