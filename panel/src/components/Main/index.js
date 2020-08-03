@@ -2,25 +2,37 @@ import React from 'react';
 import { Layout } from 'antd';
 import Editor from './components/Editor';
 import Console from './components/Console';
+import useFullPageModel from '../../models/fullPage';
 
 import styles from './index.module.scss';
 
 const Index = () => {
+  const { fullPage } = useFullPageModel();
+
   return (
-    <Layout.Content style={{ padding: '50px', marginTop: 64, display: 'flex' }}>
-      <div
-        className={styles.siteLayoutBackground}
-        style={{
-          padding: 12,
-          minHeight: 380,
-          flex: '1',
-        }}
-      >
-        <Console />
-      </div>
+    <Layout.Content
+      style={{
+        padding: '50px',
+        marginTop: 64,
+        display: 'flex',
+        height: 'calc(100vh - 134px)',
+      }}
+    >
+      {fullPage ? null : (
+        <div
+          className={styles.siteLayoutBackground}
+          style={{
+            padding: 12,
+            minHeight: 380,
+            height: '100%',
+          }}
+        >
+          <Console />
+        </div>
+      )}
       <div
         className={`${styles.siteLayoutBackground} ${styles.editorContainer}`}
-        style={{ padding: 12, height: 800, flex: '2', minWidth: 300 }}
+        style={{ padding: 12, height: '100%', width: '100%', minWidth: 300 }}
       >
         <Editor />
       </div>

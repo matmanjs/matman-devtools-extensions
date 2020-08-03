@@ -3,12 +3,14 @@ import React from 'react';
 import { Layout, Typography, Button, Tooltip } from 'antd';
 import useCodeModel from '../../models/code';
 import useConsoleModel from '../../models/console';
+import useFullPageModel from '../../models/fullPage';
 
 import styles from './index.module.scss';
 
 const Index = () => {
   const { code } = useCodeModel();
   const { handelConsole } = useConsoleModel();
+  const { fullPage, handleFullPage } = useFullPageModel();
 
   const exec = () => {
     chrome.devtools.inspectedWindow.eval(
@@ -38,6 +40,18 @@ const Index = () => {
           执行
         </Button>
       </Tooltip>
+      <Button onClick={handleFullPage} style={{ marginLeft: '20px' }}>
+        {fullPage ? '退出全屏' : '进入全屏'}
+      </Button>
+      <Button
+        type="link"
+        style={{ marginLeft: '20px' }}
+        onClick={() => {
+          window.open('https://matmanjs.github.io/matman/');
+        }}
+      >
+        文档
+      </Button>
     </Layout.Header>
   );
 };
