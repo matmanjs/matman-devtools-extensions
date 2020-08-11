@@ -3,7 +3,7 @@ import { Layout, Divider } from 'antd';
 import Options from './components/Options';
 import Editor from './components/Editor';
 
-import styles from './index.module.scss';
+import styles from './index.module.less';
 
 const Index = () => {
   return (

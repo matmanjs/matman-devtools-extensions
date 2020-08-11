@@ -5,7 +5,7 @@ import useCodeModel from '../../models/code';
 import useConsoleModel from '../../models/console';
 import useFullPageModel from '../../models/fullPage';
 
-import styles from './index.module.scss';
+import styles from './index.module.less';
 
 const Index = () => {
   const { code } = useCodeModel();

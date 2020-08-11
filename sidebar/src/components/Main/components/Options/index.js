@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Switch, Radio, Checkbox, Divider } from 'antd';
 import useOptionsModel from '../../../../models/options';
 
-import styles from './index.module.scss';
+import styles from './index.module.less';
 
 const plainOptions = ['text', 'length'];
 

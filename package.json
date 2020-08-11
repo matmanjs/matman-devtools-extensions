@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build:install": "cross-env install=true node scripts/index.js",
-    "build": "node scripts/index.js"
+    "build": "cross-env install=true node scripts/index.js",
+    "build:uninstall": "node scripts/index.js"
   },
   "repository": {
     "type": "git",

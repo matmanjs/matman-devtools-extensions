@@ -4,7 +4,7 @@ import Editor from './components/Editor';
 import Console from './components/Console';
 import useFullPageModel from '../../models/fullPage';
 
-import styles from './index.module.scss';
+import styles from './index.module.less';
 
 const Index = () => {
   const { fullPage } = useFullPageModel();
