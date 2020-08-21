@@ -3,8 +3,8 @@ import MonacoEditor from 'react-monaco-editor';
 import useCodeModel from '../../../../models/code';
 
 const options = {
-  fontSize: 18,
-  fontWeight: 'bold',
+  fontSize: 14,
+  // fontWeight: 'bold',
   automaticLayout: true,
 };
 

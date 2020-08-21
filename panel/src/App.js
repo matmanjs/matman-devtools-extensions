@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { Layout } from 'antd';
 import Header from './components/Header';
-import Options from './components/Main';
+import Main from './components/Main';
 import useConsoleModel from './models/console';
 
 function App() {
@@ -23,10 +23,7 @@ function App() {
   return (
     <Layout>
       <Header />
-      <Options />
-      <Layout.Footer style={{ textAlign: 'center' }}>
-        Matman ©2020 Created by Matmanjs
-      </Layout.Footer>
+      <Main />
     </Layout>
   );
 }

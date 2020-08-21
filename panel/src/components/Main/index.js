@@ -12,10 +12,9 @@ const Index = () => {
   return (
     <Layout.Content
       style={{
-        padding: '50px',
         marginTop: 64,
         display: 'flex',
-        height: 'calc(100vh - 134px)',
+        height: 'calc(100vh - 80px)',
       }}
     >
       {fullPage ? null : (

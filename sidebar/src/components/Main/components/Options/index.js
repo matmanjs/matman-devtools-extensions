@@ -95,7 +95,7 @@ const Index = () => {
     <>
       <div>
         <Typography.Title level={4}>
-          matman 爬虫小助手，请选择风格（web-crawl-util v{webCrawlUtilVersion}）
+          matman helper，请选择风格（web-crawl-util v{webCrawlUtilVersion}）
         </Typography.Title>
         <Radio.Group
           value={codeStyleType}
