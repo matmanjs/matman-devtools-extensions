@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Typography, Radio, Input } from 'antd';
 import useOptionsModel from '../../../../models/options';
 
@@ -13,6 +13,7 @@ const Select = () => {
       <Input
         addonBefore="选择器变量名"
         placeholder="请输入选择器变量名"
+        value={selectorName}
         defaultValue={selectorName}
         onChange={(e) => {
           setSelectorName(e.target.value);
@@ -26,12 +27,12 @@ const Parent = () => {
   const {
     parentSelectorName,
     setParentSelectorName,
+    parentSelectorList,
     selectedParentSelector,
     setSelectedParentSelector,
+    codeStyleType,
     selector,
   } = useOptionsModel();
-
-  const parentSelectorList = getParentSelectorList(selector);
 
   return (
     <>
@@ -40,6 +41,7 @@ const Parent = () => {
         <Input
           addonBefore="父级变量名"
           placeholder="请输入父级变量名"
+          value={parentSelectorName}
           defaultValue={parentSelectorName}
           onChange={(e) => {
             setParentSelectorName(e.target.value);
@@ -47,20 +49,29 @@ const Parent = () => {
         />
       </div>
 
-      <Typography.Title level={4}>父级</Typography.Title>
-      <Radio.Group
-        value={selectedParentSelector || parentSelectorList[0]}
-        defaultValue={parentSelectorList[0]}
-        onChange={(e) => setSelectedParentSelector(e.target.value)}
-      >
-        {parentSelectorList.map((item, index) => {
-          return (
-            <Radio key={item} value={item}>
-              {item}
-            </Radio>
-          );
-        })}
-      </Radio.Group>
+      {parentSelectorList.length ? (
+        <Fragment>
+          <Typography.Title level={4}>父级</Typography.Title>
+          <Radio.Group
+            value={selectedParentSelector}
+            defaultValue={selectedParentSelector}
+            onChange={(e) => setSelectedParentSelector(e.target.value)}
+          >
+            {parentSelectorList.map((item, index) => {
+              return (
+                <Radio key={item} value={item}>
+                  {item}
+                </Radio>
+              );
+            })}
+          </Radio.Group>
+        </Fragment>
+      ) : null}
+
+      <div>
+        selectedParentSelector:{selectedParentSelector},codeStyleType=
+        {codeStyleType},selector={selector}
+      </div>
     </>
   );
 };
@@ -91,7 +102,11 @@ const Index = () => {
         <Typography.Title level={4}>
           matman 爬虫小助手，请选择风格（web-crawl-util v{webCrawlUtilVersion}）
         </Typography.Title>
-        <Radio.Group value={codeStyleType} onChange={changeFrameWork}>
+        <Radio.Group
+          value={codeStyleType}
+          defaultValue={codeStyleType}
+          onChange={changeFrameWork}
+        >
           <Radio value={1}>默认</Radio>
           <Radio value={2}>使用变量</Radio>
           <Radio value={3}>包含父级变量</Radio>
@@ -101,28 +116,5 @@ const Index = () => {
     </>
   );
 };
-
-function getParentSelectorList(selector = '') {
-  const arr = selector.split(/\s+/);
-
-  const actualSelectorArr = [];
-  const result = [];
-  for (let i = 0; i < arr.length; i++) {
-    const item = arr[i].trim();
-    if (item) {
-      actualSelectorArr.push(item);
-  
-      if (!result.length) {
-        result.push(item);
-      } else {
-        result.push(`${result[result.length - 1]} ${item}`);
-      }
-    }
-  }
-
-  return result.filter(
-    (item) => !/>$/.test(item) && item !== actualSelectorArr.join(' ')
-  );
-}
 
 export default Index;

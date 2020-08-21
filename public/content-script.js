@@ -1,10 +1,12 @@
 console.log('[matman-devtools] content scripts loaded');
 
 // TODO 调试标记应该由面板控制
-const MATMAN_DEVTOOLS_DEBUG = false;
+const MATMAN_DEVTOOLS_DEBUG = true;
 const WEB_CRAWL_UTIL_VERSION = '1.1.0';
 
 console.log(`[matman-devtools] web-crawl-util v${WEB_CRAWL_UTIL_VERSION}`);
+
+let selectedDomCount = 0;
 
 /**
  * 消息类型
@@ -12,43 +14,70 @@ console.log(`[matman-devtools] web-crawl-util v${WEB_CRAWL_UTIL_VERSION}`);
  */
 const MATMAN_DEVTOOLS_MESSAGE_TYPE = {
   SEND_RESPONSE_GET_TIPS: 'CONTENT_SCRIPT_SEND_RESPONSE_GET_TIPS',
-  SEND_MESSAGE_AFTER_SELECTED_ELEMENT:
-    'CONTENT_SCRIPT_SEND_MESSAGE_AFTER_SELECTED_ELEMENT',
+  HELPER_SELECTED_ELEMENT: 'MATMAN_DEVTOOLS_HELPER_SELECTED_ELEMENT',
+  HELPER_CREATE_SAMPLE_CODE: 'MATMAN_DEVTOOLS_HELPER_CREATE_SAMPLE_CODE',
   SEND_MESSAGE_PROXY_CONSOLE_LOG: 'SEND_MESSAGE_PROXY_CONSOLE_LOG',
 };
 
 let matmanDevtoolsSelectedDom;
 
 /**
- * 设置当前选中的元素，由 DevTools 传递过来
+ * helper小助手使用: 设置当前选中的元素，由 DevTools 传递过来
  * @param selectedDom 当前选中的 DOM 元素
- * @param opts 额外参数
  */
-function setSelectedElement(selectedDom, opts) {
+function helperPageGetSelectedElement(selectedDom) {
   if (MATMAN_DEVTOOLS_DEBUG) {
-    console.log('[matman-devtools] selected dom', selectedDom, opts);
+    console.log('[matman-devtools] helperPageGetSelectedElement', selectedDom);
   }
 
+  // 记录选择次数
+  selectedDomCount++;
+
+  // 缓存当前选中的 dom
   matmanDevtoolsSelectedDom = selectedDom;
 
-  const selector = getSelector(selectedDom);
+  // 获取相关数据
+  const data = {
+    selector: getSelector(selectedDom),
+    selectedDomCount,
+  };
+
+  if (MATMAN_DEVTOOLS_DEBUG) {
+    console.log('[matman-devtools] helperPageGetSelectedElement data', data);
+  }
+
+  // 传递数据到 DevTools helper page
+  chrome.runtime.sendMessage({
+    type: MATMAN_DEVTOOLS_MESSAGE_TYPE.HELPER_SELECTED_ELEMENT,
+    data: data,
+  });
+}
+
+/**
+ * helper小助手使用: 通过选择器名字获得样例代码
+ * @param selector 当前选中的 DOM 元素的 selector
+ * @param opts 额外参数
+ */
+function helperPageGetSampleCode(selector, opts) {
+  if (MATMAN_DEVTOOLS_DEBUG) {
+    console.log('[matman-devtools] helperPageGetSampleCode', selector, opts);
+  }
 
   // 获取相关数据
   const data = {
     selector,
-    info: {
-      webCrawlUtilVersion: WEB_CRAWL_UTIL_VERSION,
-      sampleCode: createSampleCodeBySelector(selector, opts),
-    },
+    webCrawlUtilVersion: WEB_CRAWL_UTIL_VERSION,
+    sampleCode: createSampleCodeBySelector(selector, opts),
+    opts,
   };
 
   if (MATMAN_DEVTOOLS_DEBUG) {
-    console.log('[matman-devtools] selected dom data', data);
+    console.log('[matman-devtools] helperPageGetSampleCode data', data);
   }
 
-  // 传递数据到 DevTools page
+  // 传递数据到 DevTools helper page
   chrome.runtime.sendMessage({
-    type: MATMAN_DEVTOOLS_MESSAGE_TYPE.SEND_MESSAGE_AFTER_SELECTED_ELEMENT,
+    type: MATMAN_DEVTOOLS_MESSAGE_TYPE.HELPER_CREATE_SAMPLE_CODE,
     data: data,
   });
 }
@@ -195,7 +224,7 @@ function createSampleCodeBySelector(selector, opts = {}) {
   // 除了父级选择器之外的部分 selector 值
   const otherSelectorWithoutParent =
     opts.selectedParentSelector &&
-    selector.replace(opts.selectedParentSelector, '');
+    selector.replace(opts.selectedParentSelector, '').trim();
 
   // useJquery.xxx(yy) 中 yy 的值
   let useQueryParamContentStr;
@@ -217,6 +246,7 @@ function createSampleCodeBySelector(selector, opts = {}) {
       result.push(`const ${opts.selectorName} = "${selector}";`);
       break;
     case CODE_STYLE_TYPE.PARENT:
+      result.push(`const selector = "${selector}";`);
       result.push(
         `const ${opts.parentSelectorName} = "${opts.selectedParentSelector}";`
       );
