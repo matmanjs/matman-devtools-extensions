@@ -12,7 +12,7 @@ function App() {
   const { setCode } = useCodeModel();
   const {
     setWebCrawlUtilVersion,
-    handleChangeSelector,
+    setSelector,
     selectorName,
     parentSelectorName,
     selectedParentSelector,
@@ -21,6 +21,8 @@ function App() {
     setSelectedParentSelector,
     setSelectedDomCount,
     selector,
+    selectedDomCount,
+    setParentSelectorList,
   } = useOptionsModel();
 
   // 注意，只能执行一次！！！！
@@ -49,52 +51,91 @@ function App() {
         setSelectedDomCount(message.data.selectedDomCount);
 
         // 更新 selector
-        handleChangeSelector(message.data.selector);
+        setSelector(message.data.selector);
       } else if (message.type === 'MATMAN_DEVTOOLS_HELPER_CREATE_SAMPLE_CODE') {
         // 设置 web-crawl-util 的版本号
         setWebCrawlUtilVersion(message.data.webCrawlUtilVersion);
 
         // 设置样例代码
         setCode(message.data.sampleCode);
-
-        // if (message.data.opts.selectedParentSelector) {
-        //   setSelectedParentSelector(message.data.opts.selectedParentSelector);
-        // }
       }
     });
   }, []);
 
   // 注意，在这几个值变化的时候重新生成代码
   useEffect(() => {
-    const updateSelectElement = () => {
-      const opts = {
-        selectorName,
-        parentSelectorName,
-        selectedParentSelector,
-        codeStyleType,
-        selector,
-      };
+    // 通过 selector 计算出有多少种父级 selector
+    const curParentSelectorList = getParentSelectorList(selector);
+    setParentSelectorList(curParentSelectorList);
 
-      chrome.devtools.inspectedWindow.eval(
-        `helperPageGetSampleCode("${selector}", ${JSON.stringify(opts)})`,
-        {
-          useContentScriptContext: true,
-        }
-      );
+    // 修复 selectedParentSelector 值
+    if (curParentSelectorList.length) {
+      if (curParentSelectorList.indexOf(selectedParentSelector) < 0) {
+        // 如果当前选择的父级 selector 不在可选列表中，则设置默认值
+        setSelectedParentSelector(curParentSelectorList[0]);
+      }
+    } else {
+      setSelectedParentSelector('');
+    }
+
+    // console.log(
+    //   '====000111====',
+    //   selector,
+    //   curParentSelectorList,
+    //   selectedParentSelector
+    // );
+
+    // 传递参数过去生成样例代码
+    const opts = {
+      selectorName,
+      parentSelectorName,
+      selectedParentSelector,
+      codeStyleType,
+      selector,
     };
-    updateSelectElement();
+
+    chrome.devtools.inspectedWindow.eval(
+      `helperPageGetSampleCode("${selector}", ${JSON.stringify(opts)})`,
+      {
+        useContentScriptContext: true,
+      }
+    );
   }, [
     selectorName,
     parentSelectorName,
     selectedParentSelector,
     codeStyleType,
     selector,
+    selectedDomCount,
   ]);
 
   return (
     <Layout>
       <Main />
     </Layout>
+  );
+}
+
+function getParentSelectorList(selector = '') {
+  const arr = selector.split(/\s+/);
+
+  const actualSelectorArr = [];
+  const result = [];
+  for (let i = 0; i < arr.length; i++) {
+    const item = arr[i].trim();
+    if (item) {
+      actualSelectorArr.push(item);
+
+      if (!result.length) {
+        result.push(item);
+      } else {
+        result.push(`${result[result.length - 1]} ${item}`);
+      }
+    }
+  }
+
+  return result.filter(
+    (item) => !/>$/.test(item) && item !== actualSelectorArr.join(' ')
   );
 }
 

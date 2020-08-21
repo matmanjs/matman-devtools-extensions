@@ -67,11 +67,6 @@ const Parent = () => {
           </Radio.Group>
         </Fragment>
       ) : null}
-
-      <div>
-        selectedParentSelector:{selectedParentSelector},codeStyleType=
-        {codeStyleType},selector={selector}
-      </div>
     </>
   );
 };
