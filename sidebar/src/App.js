@@ -58,6 +58,11 @@ function App() {
 
         // 设置样例代码
         setCode(message.data.sampleCode);
+
+        // 解决第一次时无法自动生成代码的问题
+        if (!message.data.opts.selector) {
+          updateSelectElement();
+        }
       }
     });
   }, []);

@@ -2,6 +2,7 @@ import { useState, useCallback } from 'react';
 import { createModel } from 'hox';
 
 const CODE_STYLE_TYPE = {
+  UNKNOWN: 1,
   DEFAULT: 1,
   SELECTOR: 2,
   PARENT: 3,
@@ -15,7 +16,7 @@ const headerHeightMap = {
 
 function useOptions() {
   // 代码风格
-  const [codeStyleType, setCodeStyleType] = useState(1);
+  const [codeStyleType, setCodeStyleType] = useState(CODE_STYLE_TYPE.UNKNOWN);
 
   // 选择器变量名称
   const [selectorName, setSelectorName] = useState('selector');
