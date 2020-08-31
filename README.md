@@ -1,6 +1,6 @@
-# matman-devtools
+# matman-devtools-extensions
 
-Chrome devtools for [matman](https://github.com/matmanjs/matman) 。
+Chrome devtools extensions for [matman](https://github.com/matmanjs/matman) 。
 
 ## 如何使用
 

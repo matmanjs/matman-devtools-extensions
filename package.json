@@ -1,5 +1,5 @@
 {
-  "name": "matman-devtools",
+  "name": "matman-devtools-extensions",
   "description": "chrome devtools for matman",
   "private": false,
   "scripts": {
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matmanjs/matman-devtools.git"
+    "url": "git+https://github.com/matmanjs/matman-devtools-extensions.git"
   },
   "keywords": [
     "matman",
@@ -18,9 +18,9 @@
   "author": "helinjiang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/matmanjs/matman-devtools/issues"
+    "url": "https://github.com/matmanjs/matman-devtools-extensions/issues"
   },
-  "homepage": "https://github.com/matmanjs/matman-devtools#readme",
+  "homepage": "https://github.com/matmanjs/matman-devtools-extensions#readme",
   "dependencies": {
     "shelljs": "^0.8.4"
   },

@@ -1,10 +1,10 @@
-console.log('[matman-devtools] content scripts loaded');
+console.log('[matman-devtools-extensions] content scripts loaded');
 
 // TODO 调试标记应该由面板控制
 const MATMAN_DEVTOOLS_DEBUG = false;
 const WEB_CRAWL_UTIL_VERSION = '1.1.0';
 
-console.log(`[matman-devtools] web-crawl-util v${WEB_CRAWL_UTIL_VERSION}`);
+console.log(`[matman-devtools-extensions] web-crawl-util v${WEB_CRAWL_UTIL_VERSION}`);
 
 let selectedDomCount = 0;
 
@@ -27,7 +27,7 @@ let matmanDevtoolsSelectedDom;
  */
 function helperPageGetSelectedElement(selectedDom) {
   if (MATMAN_DEVTOOLS_DEBUG) {
-    console.log('[matman-devtools] helperPageGetSelectedElement', selectedDom);
+    console.log('[matman-devtools-extensions] helperPageGetSelectedElement', selectedDom);
   }
 
   // 记录选择次数
@@ -43,7 +43,7 @@ function helperPageGetSelectedElement(selectedDom) {
   };
 
   if (MATMAN_DEVTOOLS_DEBUG) {
-    console.log('[matman-devtools] helperPageGetSelectedElement data', data);
+    console.log('[matman-devtools-extensions] helperPageGetSelectedElement data', data);
   }
 
   // 传递数据到 DevTools helper page
@@ -60,7 +60,7 @@ function helperPageGetSelectedElement(selectedDom) {
  */
 function helperPageGetSampleCode(selector, opts) {
   if (MATMAN_DEVTOOLS_DEBUG) {
-    console.log('[matman-devtools] helperPageGetSampleCode', selector, opts);
+    console.log('[matman-devtools-extensions] helperPageGetSampleCode', selector, opts);
   }
 
   // 获取相关数据
@@ -72,7 +72,7 @@ function helperPageGetSampleCode(selector, opts) {
   };
 
   if (MATMAN_DEVTOOLS_DEBUG) {
-    console.log('[matman-devtools] helperPageGetSampleCode data', data);
+    console.log('[matman-devtools-extensions] helperPageGetSampleCode data', data);
   }
 
   // 传递数据到 DevTools helper page
@@ -121,7 +121,7 @@ function injectScriptToContentPage() {
 // DevTools page 通过 chrome.tabs.sendMessage 来发送消息
 chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   if (MATMAN_DEVTOOLS_DEBUG) {
-    console.log('[matman-devtools] receive message', message);
+    console.log('[matman-devtools-extensions] receive message', message);
   }
 
   // 如果当前没有已选中的 dom ，则不做其他处理
@@ -145,7 +145,7 @@ chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
   };
 
   if (MATMAN_DEVTOOLS_DEBUG) {
-    console.log('[matman-devtools] selected dom data', data);
+    console.log('[matman-devtools-extensions] selected dom data', data);
   }
 
   // 传回到 DevTools page
