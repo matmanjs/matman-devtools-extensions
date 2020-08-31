@@ -1,14 +1,15 @@
 {
-  "name": "matman-devtools",
-  "description": "chrome devtools for matman",
+  "name": "matman-devtools-extensions",
+  "version": "1.2.0",
   "private": false,
   "scripts": {
-    "build": "cross-env install=true node scripts/index.js",
-    "build:uninstall": "node scripts/index.js"
+    "build": "cross-env RUN_NPM_INSTALL=npm node chrome/build.js",
+    "build:uninstall": "node chrome/build.js",
+    "build:chrome": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/matmanjs/matman-devtools.git"
+    "url": "git+https://github.com/matmanjs/matman-devtools-extensions.git"
   },
   "keywords": [
     "matman",
@@ -18,13 +19,16 @@
   "author": "helinjiang",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/matmanjs/matman-devtools/issues"
+    "url": "https://github.com/matmanjs/matman-devtools-extensions/issues"
   },
-  "homepage": "https://github.com/matmanjs/matman-devtools#readme",
+  "homepage": "https://github.com/matmanjs/matman-devtools-extensions#readme",
   "dependencies": {
+    "fs-extra": "^9.0.1",
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
-    "cross-env": "^7.0.2"
+    "compressing": "^1.5.1",
+    "cross-env": "^7.0.2",
+    "crx": "^5.0.1"
   }
 }
