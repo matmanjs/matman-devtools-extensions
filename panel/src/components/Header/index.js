@@ -9,7 +9,7 @@ import styles from './index.module.less';
 
 const Index = () => {
   const { code } = useCodeModel();
-  const { handelConsole } = useConsoleModel();
+  const { handleConsole } = useConsoleModel();
   const { fullPage, handleFullPage } = useFullPageModel();
 
   const exec = () => {
@@ -42,7 +42,7 @@ const Index = () => {
         console.log(result, isException);
 
         // 在 matman console 中打印
-        handelConsole(result || isException);
+        handleConsole(result || isException);
       }
     );
   };

@@ -6,18 +6,22 @@ import Main from './components/Main';
 import useConsoleModel from './models/console';
 
 function App() {
-  const { handelConsole } = useConsoleModel();
+  const { handleConsole } = useConsoleModel();
 
   useEffect(() => {
-    chrome.runtime.onMessage.addListener(function (message) {
-      console.log(
-        '[panel-sidbar.js][listenMsgFromContentScript] receive message',
-        message
-      );
-      if (message.type === 'SEND_MESSAGE_PROXY_CONSOLE_LOG') {
-        handelConsole(message.data);
-      }
-    });
+    if (chrome && chrome.runtime && chrome.runtime.onMessage) {
+      chrome.runtime.onMessage.addListener(function (message) {
+        console.log(
+          '[panel-sidbar.js][listenMsgFromContentScript] receive message',
+          message,
+        );
+        if (message.type === 'SEND_MESSAGE_PROXY_CONSOLE_LOG') {
+          handleConsole(message.data);
+        }
+      });
+    }else{
+      handleConsole('本地调试中...');
+    }
   }, []);
 
   return (

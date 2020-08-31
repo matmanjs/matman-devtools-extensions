@@ -16,13 +16,17 @@ module.exports = () => {
   const [code, setCode] = useState(initialCode);
 
   useEffect(() => {
-    chrome.storage.local.get({ code: initialCode }, (item) => {
-      setCode(item.code);
-    });
+    if (chrome && chrome.storage) {
+      chrome.storage.local.get({ code: initialCode }, (item) => {
+        setCode(item.code);
+      });
+    }
   }, []);
 
   useEffect(() => {
-    chrome.storage.local.set({ code: code });
+    if (chrome && chrome.storage) {
+      chrome.storage.local.set({ code: code });
+    }
   }, [code]);
 
   return {

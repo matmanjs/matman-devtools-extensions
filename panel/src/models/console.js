@@ -7,7 +7,7 @@ function useConsole() {
     { method: 'log', data: ['waiting....'] },
   ]);
 
-  const handelConsole = (data) => {
+  const handleConsole = (data) => {
     let temp = [];
     if (data instanceof Array) {
       temp = data.map((item) => {
@@ -24,7 +24,7 @@ function useConsole() {
 
   return {
     consoleData,
-    handelConsole,
+    handleConsole,
   };
 }
 
