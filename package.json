@@ -1,6 +1,6 @@
 {
   "name": "matman-devtools-extensions",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "private": false,
   "scripts": {
     "build": "cross-env RUN_NPM_INSTALL=npm node chrome/build.js",

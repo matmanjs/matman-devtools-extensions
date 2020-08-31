@@ -13,10 +13,11 @@ const pkgInfo = require('../package.json');
 
 /**
  * 构建 Create-React-App 项目
+ * @param {String} projectRoot 项目根目录
  * @param {String} projectName 项目名
  */
-function buildCRAProject(projectName) {
-  const currentProjectRoot = path.join(workspaceRootPath, projectName);
+function buildCRAProject(projectRoot, projectName) {
+  const currentProjectRoot = projectRoot;
   const currentProjectBuildPath = path.join(currentProjectRoot, 'build');
   const currentProjectOutputPath = path.join(unzipOutputPath, projectName);
 

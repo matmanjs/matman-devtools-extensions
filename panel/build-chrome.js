@@ -1,3 +1,3 @@
 const { buildCRAProject } = require('../chrome/build-helper');
 
-buildCRAProject('panel');
+buildCRAProject(__dirname, 'panel');

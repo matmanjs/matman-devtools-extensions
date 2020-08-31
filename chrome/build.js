@@ -1,5 +1,4 @@
 const path = require('path');
-const shelljs = require('shelljs');
 const fse = require('fs-extra');
 
 const {
@@ -11,6 +10,7 @@ const {
   compress,
   generateCrx,
   updateManifestJsonVersion,
+  buildCRAProject,
 } = require('./build-helper');
 
 (async () => {
@@ -25,11 +25,11 @@ const {
   // 复制 chrome devtools extensions 的一些公共文件
   fse.copySync(chromePublicSrcPath, unzipOutputPath);
 
-  // 编译打包，有多个项目需要执行命令
-  const dirs = ['sidebar', 'panel'];
-  for (const subDir of dirs) {
-    shelljs.exec('npm run build:chrome', { cwd: path.join(workspaceRootPath, subDir) });
-  }
+  // 打包 Create-React-App 项目: sidebar 爬虫工具
+  buildCRAProject(path.join(workspaceRootPath, 'sidebar'), 'sidebar');
+
+  // 打包 Create-React-App 项目: panel 操作台
+  buildCRAProject(path.join(workspaceRootPath, 'panel'), 'panel');
 
   // 更新 manifest.json 中的版本
   updateManifestJsonVersion(pkgInfo.version);
