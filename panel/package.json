@@ -5,7 +5,7 @@
   "homepage": ".",
   "scripts": {
     "start": "craco start",
-    "build": "INLINE_RUNTIME_CHUNK=false craco build",
+    "build": "cross-env INLINE_RUNTIME_CHUNK=false craco build",
     "test": "craco test"
   },
   "eslintConfig": {
@@ -38,5 +38,8 @@
     "react-dom": "^16.13.1",
     "react-monaco-editor": "^0.39.1",
     "react-scripts": "3.4.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
   }
 }

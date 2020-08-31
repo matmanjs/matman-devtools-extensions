@@ -26,4 +26,7 @@ yarn-error.log*
 .next
 
 .idea
+
 build
+chrome-extensions
+release/*.crx

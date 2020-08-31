@@ -27,6 +27,7 @@
     "shelljs": "^0.8.4"
   },
   "devDependencies": {
+    "compressing": "^1.5.1",
     "cross-env": "^7.0.2",
     "crx": "^5.0.1"
   }
