@@ -6,6 +6,7 @@
   "scripts": {
     "start": "craco start",
     "build": "cross-env INLINE_RUNTIME_CHUNK=false craco build",
+    "build:chrome": "node build-chrome.js",
     "test": "craco test"
   },
   "eslintConfig": {
