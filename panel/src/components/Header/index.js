@@ -1,6 +1,6 @@
 /* global chrome */
 import React from 'react';
-import { Layout, Typography, Button, Tooltip } from 'antd';
+import { Button, Layout, Typography } from 'antd';
 import useCodeModel from '../../models/code';
 import useConsoleModel from '../../models/console';
 import useFullPageModel from '../../models/fullPage';
@@ -43,7 +43,7 @@ const Index = () => {
 
         // 在 matman console 中打印
         handleConsole(result || isException);
-      }
+      },
     );
   };
 
@@ -58,11 +58,9 @@ const Index = () => {
       }}
     >
       <Typography.Title className={styles.title}>Matman</Typography.Title>
-      <Tooltip title="请务必在代码中指定一个 module.exports 函数">
-        <Button type="primary" onClick={exec}>
-          执行
-        </Button>
-      </Tooltip>
+      <Button type="primary" onClick={exec}>
+        执行
+      </Button>
       <Button onClick={handleFullPage} style={{ marginLeft: '20px' }}>
         {fullPage ? '退出全屏' : '进入全屏'}
       </Button>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Modal } from 'antd';
+import { Button, Layout, Modal, Tooltip } from 'antd';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 
 import Editor from './components/Editor';
@@ -46,19 +46,21 @@ const Index = () => {
           position: 'relative',
         }}
       >
-        <QuestionCircleOutlined
-          style={{
-            fontSize: '24px',
-            color: '#1890ff',
-            position: 'absolute',
-            zIndex: 10,
-            left: 12,
-            top: 12,
-          }}
-          onClick={() => {
-            setIsShowTips(true);
-          }}
-        />
+        <Tooltip title="点击查看提示">
+          <QuestionCircleOutlined
+            style={{
+              fontSize: '24px',
+              color: '#1890ff',
+              position: 'absolute',
+              zIndex: 10,
+              left: 12,
+              top: 12,
+            }}
+            onClick={() => {
+              setIsShowTips(true);
+            }}
+          />
+        </Tooltip>
         <Editor />
       </div>
 
@@ -85,6 +87,9 @@ const Index = () => {
 }`}
           </code>
         </pre>
+        <p>更多帮助请 <Button type="link" onClick={() => {
+          window.open('https://matmanjs.github.io/matman/');
+        }}>查看文档</Button></p>
       </Modal>
     </Layout.Content>
   );
