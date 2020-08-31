@@ -1,13 +1,22 @@
 /* global chrome */
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { createModel } from 'hox';
 
 function useCode() {
+  const initialCode = `
+// Typing....
+module.exports = () => {
+  return {
+    remarks: 'Got data by npm package: web-crawl-util',
+  };
+};
+`;
+
   // 元素跟踪
-  const [code, setCode] = useState('// Typing....');
+  const [code, setCode] = useState(initialCode);
 
   useEffect(() => {
-    chrome.storage.local.get({ code: '// Typing....' }, (item) => {
+    chrome.storage.local.get({ code: initialCode }, (item) => {
       setCode(item.code);
     });
   }, []);
