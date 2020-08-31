@@ -7,7 +7,7 @@ elements.createSidebarPane('Matman', function (sidebar) {
 });
 
 chrome.devtools.panels.create(
-  'MatmanConsole',
+  'Matman',
   'icons/icon16.png',
   'panel/index.html'
 );
