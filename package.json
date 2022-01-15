@@ -24,7 +24,7 @@
   "homepage": "https://github.com/matmanjs/matman-devtools-extensions#readme",
   "dependencies": {
     "fs-extra": "^9.0.1",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.5"
   },
   "devDependencies": {
     "compressing": "^1.5.1",
